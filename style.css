@@ -1,0 +1,80 @@
+/* Reset básico y tipografía */
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* Estructura principal */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Encabezado */
+h1 {
+  color: rgb(255, 185, 185);
+  font-weight: bold;
+}
+
+/* Botones */
+button {
+  color: rgb(255, 185, 185);
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgb(255, 230, 230);
+}
+
+/* Listas sin estilos por defecto */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Tablero general */
+.tablero {
+  background-color: pink;
+  border: 1px solid pink;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Filas del tablero */
+.fila {
+  width: auto;
+}
+
+.fila ul {
+  display: flex;
+  gap: 5px;
+}
+
+/* Celdas / bloques */
+.bloque li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 75px;
+  background-color: rgb(250, 99, 99);
+  padding: 1px;
+  border-radius: 5px;
+}
