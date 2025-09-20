@@ -172,10 +172,21 @@ function mover(direccion) {
   if (movio) {
     generarNumero();
     renderizarTablero();
+    actualizarPuntaje();
     if (!hayMovimientos()) setTimeout(() => alert("¡Game Over!"), 50);
   }
 }
 
+function actualizarPuntaje() {
+  let puntaje = 0;
+  for (let f = 0; f < 4; f++) {
+    for (let c = 0; c < 4; c++) {
+      puntaje += tablero[f][c];
+    }
+  }
+  document.getElementById("puntaje").textContent =" "+ puntaje;
+
+}
 // ================== Inicio / Reinicio ==================
 function iniciarJuego() {
   tablero = [
@@ -189,7 +200,9 @@ function iniciarJuego() {
   renderizarTablero();
 }
 
-// ================== Teclado ==================
+// ================== Teclado y Botones ==================
+
+
 document.addEventListener("keydown", (e) => {
   const k = e.key;
   if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","a","A","d","D","w","W","s","S"].includes(k)) {
@@ -204,5 +217,10 @@ document.addEventListener("keydown", (e) => {
 // Botón Reiniciar (id="reiniciar" en tu HTML)
 document.getElementById("reiniciar").addEventListener("click", iniciarJuego);
 
+document.getElementById("instrucciones").addEventListener("click", () => {
+  alert("Usa las flechas del teclado o las teclas W A S D para mover las fichas.\nCuando dos fichas con el mismo número se tocan, se combinan en una sola con su suma.\n\nEl objetivo es llegar a la ficha 2048. ¡Buena suerte!");
+});
+
+// ================== Inicio ==================
 // ¡a jugar!
 iniciarJuego();

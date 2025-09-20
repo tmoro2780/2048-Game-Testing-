@@ -1,7 +1,7 @@
 /* Reset básico y tipografía */
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 1.5rem;
   color: white;
 }
@@ -19,25 +19,51 @@ html, body {
   align-items: center;
 }
 
+/* Título: 2048*/
+.titulo {
+  margin-bottom: 5px;
+  font-size: 2rem;
+}
 /* Encabezado */
 h1 {
-  color: rgb(255, 116, 116);
+  color: rgb(181, 0, 0);
   font-weight: bold;
 }
 
+/* Contenedor Puntaje del juego estilos */
+.container-puntaje{
+  margin: 1rem;
+  width: 10rem;
+  text-align: center;
+  height: 4rem;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 116, 116);
+  border: none;
+  border-radius: 10px;
+}
+/* Descripción "Creado por Moro"*/
+.descripcion {
+  color: rgb(222, 105, 105);
+  font-size: 0.8rem;
+  margin-top: -10px;
+}
 /* Botones */
 button {
   color: rgb(255, 255, 255);
   background-color: rgb(255, 159, 159);
   border-radius: 10px;
   border: none;
+  font-size: 1.3rem;
   padding: 10px 20px;
   cursor: pointer;
+  opacity: 0.8;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: rgb(255, 128, 128);
+  background-color: rgb(255, 60, 60);
 }
 
 /* Listas sin estilos por defecto */
@@ -46,7 +72,9 @@ ul {
   padding: 0;
   margin: 0;
 }
-
+.container-game{
+  overflow: hidden;
+}
 /* Tablero general */
 .tablero {
   background-color: pink;
