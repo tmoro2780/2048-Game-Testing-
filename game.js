@@ -1,139 +1,39 @@
-// Creamos el tablero en forma de matriz 4x4
+// ================== Estado ==================
 let tablero = [
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0]
+  [0,0,0,0],
+  [0,0,0,0],
+  [0,0,0,0],
+  [0,0,0,0]
 ];
 
-// Guardamos los bloques (celdas HTML) en un array
+// Tomamos las 16 celdas por id 0..15 (como en tu HTML)
 const bloques = [];
 for (let i = 0; i < 16; i++) {
-  bloques.push(document.getElementById(i));
+  bloques.push(document.getElementById(String(i)));
 }
 
-// Función para mostrar el tablero en el HTML
+// ================== Render ==================
 function renderizarTablero() {
   let index = 0;
   for (let fila = 0; fila < 4; fila++) {
     for (let col = 0; col < 4; col++) {
       const valor = tablero[fila][col];
-      bloques[index].textContent = valor === 0 ? "" : valor;
+      const celda = bloques[index];
+      celda.textContent = valor === 0 ? "" : valor;
+      // opcional: tamaño de fuente un poco responsive
+      celda.style.fontWeight = "700";
+      celda.style.fontSize =
+        valor >= 1024 ? "22px" :
+        valor >= 128  ? "26px" :
+        valor >= 16   ? "28px" : "32px";
       index++;
     }
   }
-  actualizarColores(); // 🔥 Se llama cada vez que se renderiza
+  actualizarColores();
 }
 
-
-// Función para generar un número 2 en una posición aleatoria vacía
-function spawnNumber() {
-  const posicionesLibres = [];
-
-  // Buscar todas las posiciones vacías (con 0)
-  for (let fila = 0; fila < 4; fila++) {
-    for (let col = 0; col < 4; col++) {
-      if (tablero[fila][col] === 0) {
-        posicionesLibres.push({ fila, col });
-      }
-    }
-  }
-  // Si hay al menos una posición libre, poner un 2 en una aleatoria
-  if (posicionesLibres.length > 0) {
-    const randomIndex = Math.floor(Math.random() * posicionesLibres.length);
-    const posicion = posicionesLibres[randomIndex];
-    tablero[posicion.fila][posicion.col] = 2;
-  }
-}
-
-// Función para iniciar el juego
-function startGame() {
-  // Reiniciamos el tablero
-  tablero = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ];
-
-  spawnNumber();         // Agrega un 2 al tablero
-  renderizarTablero();   // Muestra el tablero en la pantalla
-}
-
-function move(direction) {
-    // Usamos la direccion en la que se toco la tecla
-    switch (direction) {
-      case "up":
-        // Si el bloque arriba es igual a 2, lo eliminamos
-        if (tablero[0][0] === 2) {
-          tablero[0][0] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque arriba es igual a 4, lo eliminamos
-        if (tablero[0][0] === 4) {
-          tablero[0][0] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque arriba no es igual a 2 o 4, lo sumamos a la columna
-        else {
-          tablero[0][0] += 2;
-          renderizarTablero();
-        }
-        break;
-      case "down":
-        // Si el bloque abajo es igual a 2, lo eliminamos
-        if (tablero[3][0] === 2) {
-          tablero[3][0] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque abajo es igual a 4, lo eliminamos
-        if (tablero[3][0] === 4) {
-          tablero[3][0] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque abajo no es igual a 2 o 4, lo sumamos a la columna
-        else {
-          tablero[3][0] += 2;
-          renderizarTablero();
-        }
-        break;
-      case "left":
-        // Si el bloque a la izquierda es igual a 2, lo eliminamos
-        if (tablero[0][0] === 2) {
-          tablero[0][0] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque a la izquierda es igual a 4, lo eliminamos
-        if (tablero[0][0] === 4) {
-          tablero[0][0] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque a la izquierda no es igual a 2 o 4, lo sumamos a la columna
-        else {
-          tablero[0][0] += 2;
-          renderizarTablero();
-        }
-        break;
-      case "right":
-        // Si el bloque a la derecha es igual a 2, lo eliminamos
-        if (tablero[0][3] === 2) {
-          tablero[0][3] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque a la derecha es igual a 4, lo eliminamos
-        if (tablero[0][3] === 4) {
-          tablero[0][3] = 0;
-          renderizarTablero();
-        }
-        // Si el bloque a la derecha no es igual a 2 o 4, lo sumamos a la columna
-        else {
-          tablero[0][3] += 2;
-          renderizarTablero();
-        }
-        break;
-    }
-}
-
+// Si ya tenías esta función en otro archivo, podés mantener la tuya.
+// De lo contrario, te dejo una versión lista:
 function actualizarColores() {
   for (let fila = 0; fila < 4; fila++) {
     for (let col = 0; col < 4; col++) {
@@ -141,68 +41,168 @@ function actualizarColores() {
       const celda = bloques[fila * 4 + col];
 
       switch (valor) {
-        case 0:
-          celda.style.backgroundColor = "white";
-          break;
-        case 2:
-          celda.style.backgroundColor = "#FF5B5B";
-          break;
-        case 4:
-          celda.style.backgroundColor = "#EE526B";
-          break;
-        case 8:
-          celda.style.backgroundColor = "#DD497C";
-          break;
-        case 16:
-          celda.style.backgroundColor = "#CC408C";
-          break;
-        case 32:
-          celda.style.backgroundColor = "#BB379D";
-          break;
-        case 64:
-          celda.style.backgroundColor = "#AA2EAD";
-          break;
-        case 128:
-          celda.style.backgroundColor = "#9924BD";
-          break;
-        case 256:
-          celda.style.backgroundColor = "#881BCE";
-          break;
-        case 512:
-          celda.style.backgroundColor = "#7712DE";
-          break;
-        case 1024:
-          celda.style.backgroundColor = "#6609EF";
-          break;
-        case 2048:
-          celda.style.backgroundColor = "#5500FF";
-          break;
-        default:
-          celda.style.backgroundColor = "black"; // por si se va de rango
-          break;
+        case 0:    celda.style.backgroundColor = "white"; break;
+        case 2:    celda.style.backgroundColor = "#FF5B5B"; break;
+        case 4:    celda.style.backgroundColor = "#EE526B"; break;
+        case 8:    celda.style.backgroundColor = "#DD497C"; break;
+        case 16:   celda.style.backgroundColor = "#CC408C"; break;
+        case 32:   celda.style.backgroundColor = "#BB379D"; break;
+        case 64:   celda.style.backgroundColor = "#AA2EAD"; break;
+        case 128:  celda.style.backgroundColor = "#9924BD"; break;
+        case 256:  celda.style.backgroundColor = "#881BCE"; break;
+        case 512:  celda.style.backgroundColor = "#7712DE"; break;
+        case 1024: celda.style.backgroundColor = "#6609EF"; break;
+        case 2048: celda.style.backgroundColor = "#5500FF"; break;
+        default:   celda.style.backgroundColor = "black";   break;
       }
+
+      celda.style.color = valor <= 4 ? "#333" : "white";
+      celda.style.display = "flex";
+      celda.style.alignItems = "center";
+      celda.style.justifyContent = "center";
+      celda.style.borderRadius = "10px";
+      celda.style.minWidth = "64px";
+      celda.style.minHeight = "64px";
     }
   }
 }
 
-document.addEventListener('keydown', function(event) {
-    console.log("Presionaste la tecla:", event.key);
-    move("down");
+// ================== Utilidades ==================
+function clonarTablero(b) { return b.map(fila => fila.slice()); }
+
+function tablerosIguales(a, b) {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      if (a[i][j] !== b[i][j]) return false;
+    }
+  }
+  return true;
+}
+
+function transponer(b) {
+  const t = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) t[j][i] = b[i][j];
+  }
+  return t;
+}
+
+// Desliza a la izquierda y combina (regla de 2048: 1 fusión por par)
+function deslizarFila(fila) {
+  const numeros = fila.filter(v => v !== 0);
+  for (let i = 0; i < numeros.length - 1; i++) {
+    if (numeros[i] === numeros[i + 1]) {
+      numeros[i] *= 2;
+      numeros[i + 1] = 0;
+      i++; // saltear la siguiente para evitar doble combinación
+    }
+  }
+  const compacta = numeros.filter(v => v !== 0);
+  while (compacta.length < 4) compacta.push(0);
+  return compacta;
+}
+
+// ================== Spawneo ==================
+function generarNumero() {
+  const libres = [];
+  for (let f = 0; f < 4; f++) {
+    for (let c = 0; c < 4; c++) {
+      if (tablero[f][c] === 0) libres.push({ f, c });
+    }
+  }
+  if (libres.length === 0) return;
+  const { f, c } = libres[Math.floor(Math.random() * libres.length)];
+  tablero[f][c] = Math.random() < 0.9 ? 2 : 4; // 90% 2, 10% 4
+}
+
+// ================== Movimientos ==================
+function moverIzquierda() {
+  const antes = clonarTablero(tablero);
+  for (let f = 0; f < 4; f++) tablero[f] = deslizarFila(tablero[f]);
+  return !tablerosIguales(antes, tablero);
+}
+
+function moverDerecha() {
+  const antes = clonarTablero(tablero);
+  for (let f = 0; f < 4; f++) {
+    const invertida = tablero[f].slice().reverse();
+    tablero[f] = deslizarFila(invertida).reverse();
+  }
+  return !tablerosIguales(antes, tablero);
+}
+
+function moverArriba() {
+  const antes = clonarTablero(tablero);
+  let t = transponer(tablero);
+  for (let f = 0; f < 4; f++) t[f] = deslizarFila(t[f]);
+  tablero = transponer(t);
+  return !tablerosIguales(antes, tablero);
+}
+
+function moverAbajo() {
+  const antes = clonarTablero(tablero);
+  let t = transponer(tablero);
+  for (let f = 0; f < 4; f++) {
+    const invertida = t[f].slice().reverse();
+    t[f] = deslizarFila(invertida).reverse();
+  }
+  tablero = transponer(t);
+  return !tablerosIguales(antes, tablero);
+}
+
+function hayMovimientos() {
+  for (let f = 0; f < 4; f++) {
+    for (let c = 0; c < 4; c++) {
+      if (tablero[f][c] === 0) return true;
+      if (c < 3 && tablero[f][c] === tablero[f][c + 1]) return true;
+      if (f < 3 && tablero[f][c] === tablero[f + 1][c]) return true;
+    }
+  }
+  return false;
+}
+
+// Dirección en texto: "izquierda" | "derecha" | "arriba" | "abajo"
+function mover(direccion) {
+  let movio = false;
+  if (direccion === "izquierda") movio = moverIzquierda();
+  if (direccion === "derecha")   movio = moverDerecha();
+  if (direccion === "arriba")    movio = moverArriba();
+  if (direccion === "abajo")     movio = moverAbajo();
+
+  if (movio) {
+    generarNumero();
+    renderizarTablero();
+    if (!hayMovimientos()) setTimeout(() => alert("¡Game Over!"), 50);
+  }
+}
+
+// ================== Inicio / Reinicio ==================
+function iniciarJuego() {
+  tablero = [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+  ];
+  generarNumero();
+  generarNumero();
+  renderizarTablero();
+}
+
+// ================== Teclado ==================
+document.addEventListener("keydown", (e) => {
+  const k = e.key;
+  if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","a","A","d","D","w","W","s","S"].includes(k)) {
+    e.preventDefault(); // evita scroll con flechas
+  }
+  if (k === "ArrowLeft" || k === "a" || k === "A") mover("izquierda");
+  if (k === "ArrowRight"|| k === "d" || k === "D") mover("derecha");
+  if (k === "ArrowUp"   || k === "w" || k === "W") mover("arriba");
+  if (k === "ArrowDown" || k === "s" || k === "S") mover("abajo");
 });
 
-document.addEventListener('keyup', function(event) {
-    console.log("Presionaste la tecla:", event.key);
-    move("up");
-});
+// Botón Reiniciar (id="reiniciar" en tu HTML)
+document.getElementById("reiniciar").addEventListener("click", iniciarJuego);
 
-document.addEventListener('keyright', function(event) {
-    console.log("Presionaste la tecla:", event.key);
-    move("right");
-});
-
-document.addEventListener('keyleft', function(event) {
-    console.log("Presionaste la tecla:", event.key);
-    move("left");
-});
-// Llamamos a startGame() cuando cargue la página
-startGame();
+// ¡a jugar!
+iniciarJuego();

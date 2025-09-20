@@ -10,6 +10,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  background-color: rgb(255, 232, 232);
   height: 100%;
   width: 100%;
   display: flex;
@@ -20,14 +21,14 @@ html, body {
 
 /* Encabezado */
 h1 {
-  color: rgb(255, 185, 185);
+  color: rgb(255, 116, 116);
   font-weight: bold;
 }
 
 /* Botones */
 button {
-  color: rgb(255, 185, 185);
-  background-color: white;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 159, 159);
   border-radius: 10px;
   border: none;
   padding: 10px 20px;
@@ -36,7 +37,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(255, 230, 230);
+  background-color: rgb(255, 128, 128);
 }
 
 /* Listas sin estilos por defecto */
@@ -77,4 +78,11 @@ ul {
   background-color: rgb(250, 99, 99);
   padding: 1px;
   border-radius: 5px;
+}
+
+/* Contenedor de botones inicio */
+.contenedor-botones {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
 }
